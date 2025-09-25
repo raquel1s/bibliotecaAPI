@@ -45,7 +45,7 @@ public class UsuarioDAO {
                 String nome = rs.getString("nome");
                 String email = rs.getString("email");
 
-                usuarios.add(new Livro(id, nome, email));
+                usuarios.add(new Usuario(id, nome, email));
             }
         }
 
