@@ -4,11 +4,13 @@ import com.examplo.biblioteca.dao.EmprestimoDAO;
 import com.examplo.biblioteca.dao.UsuarioDAO;
 import com.examplo.biblioteca.model.Emprestimo;
 import com.examplo.biblioteca.model.Usuario;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+@Service
 public class EmprestimoService {
 
     private final EmprestimoDAO emprestimoRepository;

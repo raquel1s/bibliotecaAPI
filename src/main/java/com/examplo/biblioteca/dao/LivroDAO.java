@@ -3,11 +3,13 @@ package com.examplo.biblioteca.dao;
 import com.examplo.biblioteca.conexao.Conexao;
 import com.examplo.biblioteca.model.Livro;
 import com.examplo.biblioteca.model.Usuario;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class LivroDAO {
 
     public Livro salvar(Livro livro) throws SQLException {

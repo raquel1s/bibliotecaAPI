@@ -4,12 +4,14 @@ import com.examplo.biblioteca.conexao.Conexao;
 import com.examplo.biblioteca.model.Emprestimo;
 import com.examplo.biblioteca.model.Usuario;
 import org.springframework.cglib.core.Local;
+import org.springframework.stereotype.Repository;
 
 import java.sql.*;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 
+@Repository
 public class EmprestimoDAO {
 
     public Emprestimo salvar(Emprestimo emprestimo) throws SQLException {

@@ -4,10 +4,12 @@ import com.examplo.biblioteca.dao.LivroDAO;
 import com.examplo.biblioteca.dao.UsuarioDAO;
 import com.examplo.biblioteca.model.Livro;
 import com.examplo.biblioteca.model.Usuario;
+import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
 import java.util.List;
 
+@Service
 public class UsuarioService {
 
     private final UsuarioDAO repository;
