@@ -44,6 +44,7 @@ public class LivroService {
 
         for(Livro l : livros){
             if(l.getId() == id){
+                livro.setId(id);
                 repository.atualizar(livro);
                 return livro;
             }

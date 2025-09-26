@@ -15,7 +15,7 @@ import java.util.List;
 public class EmprestimoDAO {
 
     public Emprestimo salvar(Emprestimo emprestimo) throws SQLException {
-        String query = "INSERT INTO emprestimo (livro_id, usuario_id, data_emprestimo, data_devolucao) VALUES (?,?,?,?)";
+        String query = "INSERT INTO emprestimo (livro_id, usuario_id, data_emprestimo) VALUES (?,?,?)";
 
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)){

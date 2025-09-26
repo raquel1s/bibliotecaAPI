@@ -52,6 +52,7 @@ public class EmprestimoService {
 
         for (Emprestimo e : emprestimos) {
             if (e.getId() == id) {
+                emprestimo.setId(id);
                 emprestimoRepository.atualizar(emprestimo);
                 return emprestimo;
             }

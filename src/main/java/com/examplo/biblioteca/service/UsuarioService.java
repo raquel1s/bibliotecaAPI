@@ -44,6 +44,7 @@ public class UsuarioService {
 
         for(Usuario u : usuarios){
             if(u.getId() == id){
+                usuario.setId(id);
                 repository.atualizar(usuario);
                 return usuario;
             }
