@@ -18,18 +18,14 @@ public class Emprestimo {
         this.dataDevolucao = dataDevolucao;
     }
 
-    public Emprestimo(int livroId, int usuarioId, LocalDate dataEmprestimo, LocalDate dataDevolucao) {
-        this.livroId = livroId;
-        this.usuarioId = usuarioId;
-        this.dataEmprestimo = dataEmprestimo;
-        this.dataDevolucao = dataDevolucao;
-    }
-
     public Emprestimo(int id, int livroId, int usuarioId, LocalDate dataEmprestimo) {
         this.id = id;
         this.livroId = livroId;
         this.usuarioId = usuarioId;
         this.dataEmprestimo = dataEmprestimo;
+    }
+
+    public Emprestimo() {
     }
 
     public int getId() {

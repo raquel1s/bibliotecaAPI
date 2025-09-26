@@ -93,12 +93,13 @@ public class EmprestimoDAO {
     }
 
     public void atualizar(Emprestimo emprestimo) throws SQLException {
-        String query = "UPDATE emprestimo SET data_devolucao = ? WHERE id = ?";
+        String query = "UPDATE emprestimo SET data_emprestimo = ?, data_devolucao = ? WHERE id = ?";
 
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(query)){
 
-            stmt.setDate(1, Date.valueOf(emprestimo.getDataDevolucao()));
+            stmt.setDate(1, Date.valueOf(emprestimo.getDataEmprestimo()));
+            stmt.setDate(2, Date.valueOf(emprestimo.getDataDevolucao()));
             stmt.setInt(3, emprestimo.getId());
             stmt.executeUpdate();
         }

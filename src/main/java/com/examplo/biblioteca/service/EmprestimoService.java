@@ -43,13 +43,42 @@ public class EmprestimoService {
         return emprestimosUsuario;
     }
 
-    public Emprestimo finalizarEmprestimo(int id) throws SQLException {
+    public List<Emprestimo> buscarTodos() throws SQLException{
+        return emprestimoRepository.buscarTodos();
+    }
+
+    public Emprestimo atualizar(int id, Emprestimo emprestimo) throws SQLException {
         List<Emprestimo> emprestimos = emprestimoRepository.buscarTodos();
 
-        for (Emprestimo emprestimo : emprestimos) {
-            if (emprestimo.getId() == id) {
+        for (Emprestimo e : emprestimos) {
+            if (e.getId() == id) {
                 emprestimoRepository.atualizar(emprestimo);
                 return emprestimo;
+            }
+        }
+
+        throw new RuntimeException("Id do usuário não existe!");
+    }
+
+    public Emprestimo buscarPorId(int id) throws SQLException {
+        List<Emprestimo> emprestimos = emprestimoRepository.buscarTodos();
+
+        for(Emprestimo emprestimo : emprestimos){
+            if(emprestimo.getId() == id){
+                return emprestimoRepository.buscarPorId(id);
+            }
+        }
+
+        throw new RuntimeException("Id do usuário não existe!");
+    }
+
+    public void deletar(int id) throws SQLException{
+        List<Emprestimo> emprestimos = emprestimoRepository.buscarTodos();
+
+        for(Emprestimo emprestimo : emprestimos){
+            if(emprestimo.getId() == id){
+                emprestimoRepository.deletar(id);
+                return;
             }
         }
 
