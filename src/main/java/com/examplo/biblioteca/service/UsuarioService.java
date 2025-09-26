@@ -39,11 +39,11 @@ public class UsuarioService {
         throw new RuntimeException("Id do usuário não existe!");
     }
 
-    public Usuario atualizar(int id) throws SQLException{
+    public Usuario atualizar(int id, Usuario usuario) throws SQLException{
         List<Usuario> usuarios = repository.buscarTodos();
 
-        for(Usuario usuario : usuarios){
-            if(usuario.getId() == id){
+        for(Usuario u : usuarios){
+            if(u.getId() == id){
                 repository.atualizar(usuario);
                 return usuario;
             }
