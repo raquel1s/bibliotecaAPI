@@ -95,11 +95,11 @@ public class EmprestimoController {
     }
 
     @GetMapping("/usuarios/{id}/emprestimos")
-    public List<Emprestimo> buscarEmprestimosPorIdUsuario(int usuarioId){
+    public List<Emprestimo> buscarEmprestimosPorIdUsuario(@PathVariable int id){
         List<Emprestimo> emprestimos = new ArrayList<>();
 
         try{
-            emprestimos = service.buscarEmprestimosPorIdUsuario(usuarioId);
+            emprestimos = service.buscarEmprestimosPorIdUsuario(id);
         }catch (SQLException e){
             e.printStackTrace();
         }

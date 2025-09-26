@@ -53,6 +53,7 @@ public class LivroService {
         throw new RuntimeException("Id do usuário não existe!");
     }
 
+    //verificar se o livro nao esta emprestado
     public void deletar(int id) throws SQLException{
         List<Livro> livros = repository.buscarTodos();
 

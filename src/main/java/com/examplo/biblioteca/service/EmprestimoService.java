@@ -23,6 +23,14 @@ public class EmprestimoService {
 
     // tentar fazer validações depois
     public Emprestimo salvar(Emprestimo emprestimo) throws SQLException {
+        List<Emprestimo> emprestimos = emprestimoRepository.buscarTodos();
+
+        for(Emprestimo e : emprestimos){
+            if(e.getLivroId() == emprestimo.getLivroId() && e.getDataDevolucao() == null){
+                throw new RuntimeException("Livro se encontra emprestado");
+            }
+        }
+
         return emprestimoRepository.salvar(emprestimo);
     }
 
@@ -38,8 +46,8 @@ public class EmprestimoService {
                         emprestimosUsuario.add(emprestimo);
                     }
                 }
-                break;
             }
+            break;
         }
 
         return emprestimosUsuario;
