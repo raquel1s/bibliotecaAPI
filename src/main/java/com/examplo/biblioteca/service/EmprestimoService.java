@@ -32,9 +32,11 @@ public class EmprestimoService {
         List<Emprestimo> emprestimosUsuario = new ArrayList<>();
 
         for(Usuario usuario : usuarios){
-            for(Emprestimo emprestimo : emprestimos){
-                if(emprestimo.getUsuarioId() == usuario.getId()){
-                    emprestimosUsuario.add(emprestimo);
+            if(usuario.getId() == id){
+                for(Emprestimo emprestimo : emprestimos){
+                    if(emprestimo.getUsuarioId() == usuario.getId()){
+                        emprestimosUsuario.add(emprestimo);
+                    }
                 }
                 break;
             }

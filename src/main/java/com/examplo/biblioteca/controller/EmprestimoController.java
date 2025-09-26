@@ -93,4 +93,17 @@ public class EmprestimoController {
 
         return newEmprestimo;
     }
+
+    @GetMapping("/usuarios/{id}/emprestimos")
+    public List<Emprestimo> buscarEmprestimosPorIdUsuario(int usuarioId){
+        List<Emprestimo> emprestimos = new ArrayList<>();
+
+        try{
+            emprestimos = service.buscarEmprestimosPorIdUsuario(usuarioId);
+        }catch (SQLException e){
+            e.printStackTrace();
+        }
+
+        return emprestimos;
+    }
 }
