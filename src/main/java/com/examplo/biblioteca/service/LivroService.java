@@ -39,11 +39,11 @@ public class LivroService {
         throw new RuntimeException("Id do usuário não existe!");
     }
 
-    public Livro atualizar(int id) throws SQLException{
+    public Livro atualizar(int id, Livro livro) throws SQLException{
         List<Livro> livros = repository.buscarTodos();
 
-        for(Livro livro : livros){
-            if(livro.getId() == id){
+        for(Livro l : livros){
+            if(l.getId() == id){
                 repository.atualizar(livro);
                 return livro;
             }
