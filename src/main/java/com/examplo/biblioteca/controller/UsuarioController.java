@@ -4,6 +4,9 @@ import com.examplo.biblioteca.model.Livro;
 import com.examplo.biblioteca.model.Usuario;
 import com.examplo.biblioteca.service.LivroService;
 import com.examplo.biblioteca.service.UsuarioService;
+import org.springframework.boot.autoconfigure.graphql.GraphQlProperties;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.sql.SQLException;
@@ -21,7 +24,7 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public Usuario salvar(@RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario){
         Usuario newUsuario = new Usuario();
 
         try{
@@ -30,11 +33,11 @@ public class UsuarioController {
             e.printStackTrace();
         }
 
-        return newUsuario;
+        return ResponseEntity.status(HttpStatus.CREATED).body(newUsuario);
     }
 
     @GetMapping
-    public List<Usuario> listarTodos(){
+    public ResponseEntity<List<Usuario>> listarTodos(){
         List<Usuario> usuarios = new ArrayList<>();
 
         try{
@@ -43,11 +46,11 @@ public class UsuarioController {
             e.printStackTrace();
         }
 
-        return usuarios;
+        return ResponseEntity.status(HttpStatus.OK).body(usuarios);
     }
 
     @GetMapping("/{id}")
-    public Usuario buscarPorId(@PathVariable int id){
+    public ResponseEntity<Usuario> buscarPorId(@PathVariable int id){
         Usuario newUsuario = new Usuario();
 
         try{
@@ -56,11 +59,11 @@ public class UsuarioController {
             e.printStackTrace();
         }
 
-        return newUsuario;
+        return ResponseEntity.status(HttpStatus.OK).body(newUsuario);
     }
 
     @PutMapping("/{id}")
-    public Usuario atualizar(@PathVariable int id, @RequestBody Usuario usuario){
+    public ResponseEntity<Usuario> atualizar(@PathVariable int id, @RequestBody Usuario usuario){
         Usuario newUsuario = new Usuario();
 
         try{
@@ -69,15 +72,17 @@ public class UsuarioController {
             e.printStackTrace();
         }
 
-        return newUsuario;
+        return ResponseEntity.status(HttpStatus.OK).body(newUsuario);
     }
 
     @DeleteMapping("/{id}")
-    public void remover(@PathVariable int id){
+    public ResponseEntity<Void> remover(@PathVariable int id){
         try{
             service.deletar(id);
         }catch (SQLException e){
             e.printStackTrace();
         }
+
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
