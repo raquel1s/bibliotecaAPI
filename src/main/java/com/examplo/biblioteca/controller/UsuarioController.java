@@ -32,8 +32,7 @@ public class UsuarioController {
         try{
             return ResponseEntity.status(HttpStatus.CREATED)
                     .body(service.salvar(requisicaoUsuario));
-        }catch (SQLException e){
-            e.printStackTrace();
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -42,8 +41,7 @@ public class UsuarioController {
     public ResponseEntity<List<CriacaoUsuarioRespostaDTO>> listarTodos(){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarTodos());
-        }catch (SQLException e){
-            e.printStackTrace();
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -52,17 +50,17 @@ public class UsuarioController {
     public ResponseEntity<CriacaoUsuarioRespostaDTO> buscarPorId(@PathVariable int id){
         try{
             return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
-        }catch (SQLException e){
-            e.printStackTrace();
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<CriacaoUsuarioRespostaDTO> atualizar(@PathVariable int id, @RequestBody CriacaoUsuarioRequisicaoDTO requisicaoUsuario){
+    public ResponseEntity<CriacaoUsuarioRespostaDTO> atualizar(@PathVariable int id,
+                                                               @RequestBody CriacaoUsuarioRequisicaoDTO requisicaoUsuario){
         try{
             return ResponseEntity.status((HttpStatus.OK)).body(service.atualizar(id, requisicaoUsuario));
-        }catch (SQLException e){
+        }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
@@ -71,10 +69,9 @@ public class UsuarioController {
     public ResponseEntity<Void> remover(@PathVariable int id){
         try{
             service.deletar(id);
-        }catch (SQLException e){
-            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
+        }catch (Exception e){
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
