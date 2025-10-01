@@ -63,6 +63,35 @@ public class EmprestimoDAO {
         return emprestimos;
     }
 
+    public List<Emprestimo> buscarEmprestimosPorUsuario(int usuario) throws SQLException{
+        List<Emprestimo> emprestimos = new ArrayList<>();
+
+        String query = "SELECT id, livro_id, usuario_id, data_emprestimo, data_devolucao FROM emprestimo WHERE usuario_id = ?";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+
+            stmt.setInt(1, usuario);
+            ResultSet rs = stmt.executeQuery();
+
+            while(rs.next()){
+                int id = rs.getInt("id");
+                int livroId = rs.getInt("livro_id");
+                int usuarioId = rs.getInt("usuario_id");
+                LocalDate dataEmprestimo = rs.getDate("data_emprestimo").toLocalDate();
+
+                if(rs.getDate("data_devolucao") == null){
+                    emprestimos.add(new Emprestimo(id, livroId, usuarioId, dataEmprestimo));
+                }else{
+                    LocalDate dataDevolucao = rs.getDate("data_devolucao").toLocalDate();
+                    emprestimos.add(new Emprestimo(id, livroId, usuarioId, dataEmprestimo, dataDevolucao));
+                }
+            }
+        }
+
+        return emprestimos;
+    }
+
     public Emprestimo buscarPorId(int id) throws SQLException{
         String query = "SELECT id, livro_id, usuario_id, data_emprestimo, data_devolucao FROM emprestimo WHERE id = ?";
 
@@ -90,6 +119,40 @@ public class EmprestimoDAO {
         }
 
         return new Emprestimo(newId, livroId, usuarioId, dataEmprestimo, dataDevolucao);
+    }
+
+    public boolean emprestimoExiste(int id) throws SQLException{
+        String query = "SELECT id FROM emprestimo WHERE id = ?";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()){
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    public boolean livroEmprestado(int id) throws SQLException{
+        String query = "SELECT id FROM emprestimo WHERE livro_id = ? AND data_devolucao is null;";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+
+            stmt.setInt(1, id);
+            ResultSet rs = stmt.executeQuery();
+
+            if(rs.next()){
+                return true;
+            }
+        }
+
+        return false;
     }
 
     public void atualizar(Emprestimo emprestimo) throws SQLException {
