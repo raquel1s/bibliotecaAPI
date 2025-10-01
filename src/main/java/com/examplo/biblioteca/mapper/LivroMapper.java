@@ -1,0 +1,17 @@
+package com.examplo.biblioteca.mapper;
+
+import com.examplo.biblioteca.dto.livro.CriacaoLivroRequisicaoDTO;
+import com.examplo.biblioteca.dto.livro.CriacaoLivroRespostaDTO;
+import com.examplo.biblioteca.dto.usuario.CriacaoUsuarioRespostaDTO;
+import com.examplo.biblioteca.model.Livro;
+
+public class LivroMapper {
+
+    public Livro paraEntidade(CriacaoLivroRequisicaoDTO requisicaoDTO){
+        return new Livro(requisicaoDTO.titulo(), requisicaoDTO.autor(), requisicaoDTO.anoPublicacao());
+    }
+
+    public CriacaoLivroRespostaDTO paraLivroDTO(Livro livro){
+        return new CriacaoLivroRespostaDTO(livro.getId(), livro.getTitulo(), livro.getAutor(), livro.getAnoPublicacao());
+    }
+}

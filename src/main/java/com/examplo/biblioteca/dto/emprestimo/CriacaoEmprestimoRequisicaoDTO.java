@@ -5,7 +5,6 @@ import java.time.LocalDate;
 public record CriacaoEmprestimoRequisicaoDTO(
         int livroId,
         int usuarioId,
-        LocalDate dataEmprestimo,
-        LocalDate dataDevolucao
+        LocalDate dataEmprestimo
 ) {
 }
