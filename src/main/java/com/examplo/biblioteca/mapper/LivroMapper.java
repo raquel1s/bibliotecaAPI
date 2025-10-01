@@ -4,7 +4,9 @@ import com.examplo.biblioteca.dto.livro.CriacaoLivroRequisicaoDTO;
 import com.examplo.biblioteca.dto.livro.CriacaoLivroRespostaDTO;
 import com.examplo.biblioteca.dto.usuario.CriacaoUsuarioRespostaDTO;
 import com.examplo.biblioteca.model.Livro;
+import org.springframework.stereotype.Component;
 
+@Component
 public class LivroMapper {
 
     public Livro paraEntidade(CriacaoLivroRequisicaoDTO requisicaoDTO){

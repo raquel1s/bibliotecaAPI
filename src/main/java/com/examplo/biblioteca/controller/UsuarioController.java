@@ -1,5 +1,9 @@
 package com.examplo.biblioteca.controller;
 
+import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRequisicaoDTO;
+import com.examplo.biblioteca.dto.usuario.CriacaoUsuarioRequisicaoDTO;
+import com.examplo.biblioteca.dto.usuario.CriacaoUsuarioRespostaDTO;
+import com.examplo.biblioteca.mapper.UsuarioMapper;
 import com.examplo.biblioteca.model.Livro;
 import com.examplo.biblioteca.model.Usuario;
 import com.examplo.biblioteca.service.LivroService;
@@ -24,55 +28,43 @@ public class UsuarioController {
     }
 
     @PostMapping
-    public ResponseEntity<Usuario> salvar(@RequestBody Usuario usuario){
-        Usuario newUsuario = new Usuario();
-
+    public ResponseEntity<CriacaoUsuarioRespostaDTO> salvar(@RequestBody CriacaoUsuarioRequisicaoDTO requisicaoUsuario){
         try{
-            newUsuario = service.salvar(usuario);
+            return ResponseEntity.status(HttpStatus.CREATED)
+                    .body(service.salvar(requisicaoUsuario));
         }catch (SQLException e){
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return ResponseEntity.status(HttpStatus.CREATED).body(newUsuario);
     }
 
     @GetMapping
-    public ResponseEntity<List<Usuario>> listarTodos(){
-        List<Usuario> usuarios = new ArrayList<>();
-
+    public ResponseEntity<List<CriacaoUsuarioRespostaDTO>> listarTodos(){
         try{
-            usuarios = service.buscarTodos();
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarTodos());
         }catch (SQLException e){
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return ResponseEntity.status(HttpStatus.OK).body(usuarios);
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<Usuario> buscarPorId(@PathVariable int id){
-        Usuario newUsuario = new Usuario();
-
+    public ResponseEntity<CriacaoUsuarioRespostaDTO> buscarPorId(@PathVariable int id){
         try{
-            newUsuario = service.buscarPorId(id);
+            return ResponseEntity.status(HttpStatus.OK).body(service.buscarPorId(id));
         }catch (SQLException e){
             e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return ResponseEntity.status(HttpStatus.OK).body(newUsuario);
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Usuario> atualizar(@PathVariable int id, @RequestBody Usuario usuario){
-        Usuario newUsuario = new Usuario();
-
+    public ResponseEntity<CriacaoUsuarioRespostaDTO> atualizar(@PathVariable int id, @RequestBody CriacaoUsuarioRequisicaoDTO requisicaoUsuario){
         try{
-            newUsuario = service.atualizar(id, usuario);
+            return ResponseEntity.status((HttpStatus.OK)).body(service.atualizar(id, requisicaoUsuario));
         }catch (SQLException e){
-            e.printStackTrace();
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
-
-        return ResponseEntity.status(HttpStatus.OK).body(newUsuario);
     }
 
     @DeleteMapping("/{id}")

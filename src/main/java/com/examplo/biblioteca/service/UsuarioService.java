@@ -2,6 +2,7 @@ package com.examplo.biblioteca.service;
 
 import com.examplo.biblioteca.dao.LivroDAO;
 import com.examplo.biblioteca.dao.UsuarioDAO;
+import com.examplo.biblioteca.mapper.UsuarioMapper;
 import com.examplo.biblioteca.model.Livro;
 import com.examplo.biblioteca.model.Usuario;
 import org.springframework.stereotype.Service;
@@ -13,12 +14,13 @@ import java.util.List;
 public class UsuarioService {
 
     private final UsuarioDAO repository;
+    private final UsuarioMapper mapper;
 
-    public UsuarioService(UsuarioDAO repository) {
+    public UsuarioService(UsuarioDAO repository, UsuarioMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
-    // tentar fazer validações depois
     public Usuario salvar(Usuario usuario) throws SQLException {
         return repository.salvar(usuario);
     }
