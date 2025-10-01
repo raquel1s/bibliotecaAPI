@@ -37,9 +37,7 @@ public class UsuarioService {
     }
 
     public CriacaoUsuarioRespostaDTO buscarPorId(int id) throws SQLException {
-        Usuario usuario = repository.buscarPorId(id);
-
-        if(usuario.getId() == 0){
+        if(!repository.usuarioExiste(id)){
             throw new UsuarioNaoExisteException();
         }
         return mapper.paraUsuarioDTO(repository.buscarPorId(id));
@@ -61,9 +59,7 @@ public class UsuarioService {
     }
 
     public void deletar(int id) throws SQLException{
-        Usuario usuario = repository.buscarPorId(id);
-
-        if(usuario.getId() == 0){
+        if(!repository.usuarioExiste(id)){
             throw new UsuarioNaoExisteException();
         }
 
