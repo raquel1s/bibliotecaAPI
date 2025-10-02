@@ -1,5 +1,6 @@
 package com.examplo.biblioteca.controller;
 
+import com.examplo.biblioteca.dto.dataDevDto.DataDevRequisicaoDto;
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRequisicaoDTO;
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRespostaDTO;
 import com.examplo.biblioteca.service.EmprestimoService;
@@ -45,14 +46,14 @@ public class EmprestimoController {
         }
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<CriacaoEmprestimoRespostaDTO> atualizar(@PathVariable int id, @RequestBody CriacaoEmprestimoRequisicaoDTO requisicaoDTO){
-        try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.atualizar(id, requisicaoDTO));
-        }catch (Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
-        }
-    }
+//    @PutMapping("/{id}")
+//    public ResponseEntity<CriacaoEmprestimoRespostaDTO> atualizar(@PathVariable int id, @RequestBody CriacaoEmprestimoRequisicaoDTO requisicaoDTO){
+//        try{
+//            return ResponseEntity.status(HttpStatus.OK).body(service.atualizar(id, requisicaoDTO));
+//        }catch (Exception e){
+//            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+//        }
+//    }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> remover(@PathVariable int id){
@@ -65,9 +66,11 @@ public class EmprestimoController {
     }
 
     @PutMapping("/{id}/devolucao")
-    public ResponseEntity<CriacaoEmprestimoRespostaDTO> registrarDevolucao(@PathVariable int id, @RequestBody CriacaoEmprestimoRequisicaoDTO requisicaoDTO){
+    public ResponseEntity<Void> registrarDevolucao(@PathVariable int id, @RequestBody DataDevRequisicaoDto requisicaoDTO){
         try{
-            return ResponseEntity.status(HttpStatus.OK).body(service.atualizar(id, requisicaoDTO));
+            service.atualizarDataDevolucao(id,requisicaoDTO);
+            return ResponseEntity.status(HttpStatus.NO_CONTENT)
+                    .build();
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }

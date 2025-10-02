@@ -2,6 +2,7 @@ package com.examplo.biblioteca.service;
 
 import com.examplo.biblioteca.dao.EmprestimoDAO;
 import com.examplo.biblioteca.dao.UsuarioDAO;
+import com.examplo.biblioteca.dto.dataDevDto.DataDevRequisicaoDto;
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRequisicaoDTO;
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRespostaDTO;
 import com.examplo.biblioteca.exceptions.EmprestimoNaoExisteException;
@@ -45,15 +46,12 @@ public class EmprestimoService {
                 .toList();
     }
 
-    public CriacaoEmprestimoRespostaDTO atualizar(int id, CriacaoEmprestimoRequisicaoDTO requisicaoDTO) throws SQLException {
+    public void atualizarDataDevolucao(int id, DataDevRequisicaoDto requisicaoDTO) throws SQLException {
         if(!repository.emprestimoExiste(id)){
             throw new EmprestimoNaoExisteException();
         }
 
-        Emprestimo emprestimo = mapper.paraEntidade(requisicaoDTO);
-        emprestimo.setId(id);
-        repository.atualizar(emprestimo);
-        return mapper.paraEmprestimoDTO(emprestimo);
+        repository.atualizarDataDevolucao(id,requisicaoDTO.dataDevolucao());
     }
 
     public CriacaoEmprestimoRespostaDTO buscarPorId(int id) throws SQLException {

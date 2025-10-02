@@ -164,6 +164,18 @@ public class EmprestimoDAO {
             stmt.executeUpdate();
         }
     }
+    public void atualizarDataDevolucao(int id, LocalDate dataDevolucao) throws SQLException {
+        String query = "UPDATE emprestimo SET data_devolucao = ? WHERE id = ?";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+
+            stmt.setDate(1, Date.valueOf(dataDevolucao));
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        }
+    }
 
     public void deletar(int id) throws SQLException {
         String query = "DELETE FROM emprestimo WHERE id = ?";
