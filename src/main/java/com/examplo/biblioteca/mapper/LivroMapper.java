@@ -23,11 +23,11 @@ public class LivroMapper {
         }
 
         if(requisicaoDTO.autor() != livro.getAutor() && requisicaoDTO.autor() != null){
-            livro.setTitulo(requisicaoDTO.titulo());
+            livro.setAutor(requisicaoDTO.autor());
         }
 
-        if(requisicaoDTO.anoPublicacao() != livro.getAnoPublicacao() && requisicaoDTO.anoPublicacao() != 0){
-            livro.setTitulo(requisicaoDTO.titulo());
+        if(requisicaoDTO.anoPublicacao() != livro.getAnoPublicacao()){
+            livro.setAnoPublicacao(requisicaoDTO.anoPublicacao());
         }
 
         return livro;
