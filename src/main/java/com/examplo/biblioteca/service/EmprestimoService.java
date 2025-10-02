@@ -1,20 +1,15 @@
 package com.examplo.biblioteca.service;
 
 import com.examplo.biblioteca.dao.EmprestimoDAO;
-import com.examplo.biblioteca.dao.UsuarioDAO;
 import com.examplo.biblioteca.dto.dataDevDto.DataDevRequisicaoDto;
 import com.examplo.biblioteca.dto.dataEmprestimoDTO.DataEmprestimoRequisicaoDTO;
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRequisicaoDTO;
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRespostaDTO;
-import com.examplo.biblioteca.exceptions.EmprestimoNaoExisteException;
-import com.examplo.biblioteca.exceptions.UsuarioExisteException;
+import com.examplo.biblioteca.exceptions.EmprestimoExisteException;
 import com.examplo.biblioteca.mapper.EmprestimoMapper;
-import com.examplo.biblioteca.model.Emprestimo;
-import com.examplo.biblioteca.model.Usuario;
 import org.springframework.stereotype.Service;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -30,7 +25,7 @@ public class EmprestimoService {
 
     public CriacaoEmprestimoRespostaDTO salvar(CriacaoEmprestimoRequisicaoDTO requisicaoDTO) throws SQLException {
         if(repository.livroEmprestado(requisicaoDTO.livroId())){
-            throw new EmprestimoNaoExisteException();
+            throw new EmprestimoExisteException();
         }
 
         return mapper.paraEmprestimoDTO(repository.salvar(mapper.paraEntidade(requisicaoDTO)));
@@ -50,7 +45,7 @@ public class EmprestimoService {
 
     public void atualizarDataDevolucao(int id, DataDevRequisicaoDto requisicaoDTO) throws SQLException {
         if(!repository.emprestimoExiste(id)){
-            throw new EmprestimoNaoExisteException();
+            throw new EmprestimoExisteException();
         }
 
         repository.atualizarDataDevolucao(id,requisicaoDTO.dataDevolucao());
@@ -58,7 +53,7 @@ public class EmprestimoService {
 
     public void atualizarDataEmprestimo(int id, DataEmprestimoRequisicaoDTO requisicaoDTO) throws SQLException {
         if(!repository.emprestimoExiste(id)){
-            throw new EmprestimoNaoExisteException();
+            throw new EmprestimoExisteException();
         }
 
         repository.atualizarDataEmprestimo(id,requisicaoDTO.dataEmprestimo());
@@ -66,7 +61,7 @@ public class EmprestimoService {
 
     public CriacaoEmprestimoRespostaDTO buscarPorId(int id) throws SQLException {
         if(!repository.emprestimoExiste(id)){
-            throw new EmprestimoNaoExisteException();
+            throw new EmprestimoExisteException();
         }
 
         return mapper.paraEmprestimoDTO(repository.buscarPorId(id));
@@ -74,7 +69,7 @@ public class EmprestimoService {
 
     public void deletar(int id) throws SQLException{
         if(!repository.emprestimoExiste(id)){
-            throw  new EmprestimoNaoExisteException();
+            throw  new EmprestimoExisteException();
         }
 
         repository.deletar(id);

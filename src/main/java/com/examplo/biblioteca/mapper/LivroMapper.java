@@ -16,4 +16,20 @@ public class LivroMapper {
     public CriacaoLivroRespostaDTO paraLivroDTO(Livro livro){
         return new CriacaoLivroRespostaDTO(livro.getId(), livro.getTitulo(), livro.getAutor(), livro.getAnoPublicacao());
     }
+
+    public Livro paraUpdate(CriacaoLivroRequisicaoDTO requisicaoDTO, Livro livro){
+        if(requisicaoDTO.titulo() != livro.getTitulo() && requisicaoDTO.titulo() != null){
+            livro.setTitulo(requisicaoDTO.titulo());
+        }
+
+        if(requisicaoDTO.autor() != livro.getAutor() && requisicaoDTO.autor() != null){
+            livro.setTitulo(requisicaoDTO.titulo());
+        }
+
+        if(requisicaoDTO.anoPublicacao() != livro.getAnoPublicacao() && requisicaoDTO.anoPublicacao() != 0){
+            livro.setTitulo(requisicaoDTO.titulo());
+        }
+
+        return livro;
+    }
 }

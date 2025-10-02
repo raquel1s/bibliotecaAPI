@@ -1,12 +1,10 @@
 package com.examplo.biblioteca.service;
 
-import com.examplo.biblioteca.dao.EmprestimoDAO;
 import com.examplo.biblioteca.dao.LivroDAO;
 import com.examplo.biblioteca.dto.livro.CriacaoLivroRequisicaoDTO;
 import com.examplo.biblioteca.dto.livro.CriacaoLivroRespostaDTO;
-import com.examplo.biblioteca.exceptions.LivroNaoExisteException;
+import com.examplo.biblioteca.exceptions.LivroExisteException;
 import com.examplo.biblioteca.mapper.LivroMapper;
-import com.examplo.biblioteca.model.Emprestimo;
 import com.examplo.biblioteca.model.Livro;
 import org.springframework.stereotype.Service;
 
@@ -36,26 +34,27 @@ public class LivroService {
 
     public CriacaoLivroRespostaDTO buscarPorId(int id) throws SQLException {
         if(!repository.livroExiste(id)){
-            throw new LivroNaoExisteException();
+            throw new LivroExisteException();
         }
 
         return mapper.paraLivroDTO(repository.buscarPorId(id));
     }
 
     public CriacaoLivroRespostaDTO atualizar(int id, CriacaoLivroRequisicaoDTO requisicaoDTO) throws SQLException{
-        if(!repository.livroExiste(id)){
-            throw new LivroNaoExisteException();
+        Livro livro = repository.buscarPorId(id);
+
+        if(livro == null){
+            throw new LivroExisteException();
         }
 
-        Livro livro = mapper.paraEntidade(requisicaoDTO);
-        livro.setId(id);
-        repository.atualizar(livro);
-        return mapper.paraLivroDTO(livro);
+        Livro newLivro = mapper.paraUpdate(requisicaoDTO, livro);
+        repository.atualizar(newLivro);
+        return mapper.paraLivroDTO(newLivro);
     }
 
     public void deletar(int id) throws SQLException{
         if(!repository.livroExiste(id)){
-            throw new LivroNaoExisteException();
+            throw new LivroExisteException();
         }
 
         repository.deletar(id);
