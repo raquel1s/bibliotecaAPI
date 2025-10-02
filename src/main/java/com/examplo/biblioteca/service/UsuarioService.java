@@ -46,7 +46,7 @@ public class UsuarioService {
     public CriacaoUsuarioRespostaDTO atualizar(int id, CriacaoUsuarioRequisicaoDTO requisicaoDTO) throws SQLException{
         Usuario usuario = repository.buscarPorId(id);
 
-        if(usuario.getId() == 0){
+        if(usuario == null){
             throw new UsuarioExisteException();
         }
 

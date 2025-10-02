@@ -57,10 +57,6 @@ public class UsuarioDAO {
     public Usuario buscarPorId(int id) throws SQLException{
         String query = "SELECT id, nome, email FROM usuario WHERE id = ?";
 
-        int newId = 0;
-        String nome = "";
-        String email = "";
-
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(query)){
 
@@ -68,13 +64,14 @@ public class UsuarioDAO {
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
-                newId = rs.getInt("id");
-                nome = rs.getString("nome");
-                email = rs.getString("email");
+                int newId = rs.getInt("id");
+                String nome = rs.getString("nome");
+                String email = rs.getString("email");
+
+                return new Usuario(newId, nome, email);
             }
         }
-
-        return new Usuario(newId, nome, email);
+        return null;
     }
 
     public boolean usuarioExiste(int id) throws SQLException{
