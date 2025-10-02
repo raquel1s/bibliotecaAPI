@@ -5,6 +5,8 @@ import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRespostaDTO;
 import com.examplo.biblioteca.model.Emprestimo;
 import org.springframework.stereotype.Component;
 
+import java.time.LocalDate;
+
 @Component
 public class EmprestimoMapper {
 

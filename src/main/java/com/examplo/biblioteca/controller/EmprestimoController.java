@@ -2,19 +2,14 @@ package com.examplo.biblioteca.controller;
 
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRequisicaoDTO;
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRespostaDTO;
-import com.examplo.biblioteca.dto.usuario.CriacaoUsuarioRespostaDTO;
-import com.examplo.biblioteca.model.Emprestimo;
 import com.examplo.biblioteca.service.EmprestimoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLException;
-import java.util.ArrayList;
 import java.util.List;
 
 @RestController
-@RequestMapping("emprestimos")
+@RequestMapping("/emprestimos")
 public class EmprestimoController {
 
     private final EmprestimoService service;

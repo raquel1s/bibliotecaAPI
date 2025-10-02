@@ -4,7 +4,7 @@ import com.examplo.biblioteca.dao.LivroDAO;
 import com.examplo.biblioteca.dao.UsuarioDAO;
 import com.examplo.biblioteca.dto.usuario.CriacaoUsuarioRequisicaoDTO;
 import com.examplo.biblioteca.dto.usuario.CriacaoUsuarioRespostaDTO;
-import com.examplo.biblioteca.exceptions.UsuarioNaoExisteException;
+import com.examplo.biblioteca.exceptions.UsuarioExisteException;
 import com.examplo.biblioteca.mapper.UsuarioMapper;
 import com.examplo.biblioteca.model.Livro;
 import com.examplo.biblioteca.model.Usuario;
@@ -38,29 +38,26 @@ public class UsuarioService {
 
     public CriacaoUsuarioRespostaDTO buscarPorId(int id) throws SQLException {
         if(!repository.usuarioExiste(id)){
-            throw new UsuarioNaoExisteException();
+            throw new UsuarioExisteException();
         }
         return mapper.paraUsuarioDTO(repository.buscarPorId(id));
     }
 
     public CriacaoUsuarioRespostaDTO atualizar(int id, CriacaoUsuarioRequisicaoDTO requisicaoDTO) throws SQLException{
-        List<Usuario> usuarios = repository.buscarTodos();
+        Usuario usuario = repository.buscarPorId(id);
 
-        for(Usuario u : usuarios){
-            if(u.getId() == id){
-                Usuario usuario = mapper.paraEntidade(requisicaoDTO);
-                usuario.setId(id);
-                repository.atualizar(usuario);
-                return mapper.paraUsuarioDTO(usuario);
-            }
+        if(usuario.getId() == 0){
+            throw new UsuarioExisteException();
         }
 
-        throw new UsuarioNaoExisteException();
+        Usuario newUser = mapper.paraUpdate(requisicaoDTO, usuario);
+        repository.atualizar(newUser);
+        return mapper.paraUsuarioDTO(newUser);
     }
 
     public void deletar(int id) throws SQLException{
         if(!repository.usuarioExiste(id)){
-            throw new UsuarioNaoExisteException();
+            throw new UsuarioExisteException();
         }
 
         repository.deletar(id);
