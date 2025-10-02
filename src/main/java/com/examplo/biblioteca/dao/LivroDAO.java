@@ -59,11 +59,6 @@ public class LivroDAO {
     public Livro buscarPorId(int id) throws SQLException{
         String query = "SELECT id, titulo, autor, ano_publicacao FROM livro WHERE id = ?";
 
-        int newId = 0;
-        String titulo = "";
-        String autor = "";
-        int anoPublicacao = 0;
-
         try(Connection conn = Conexao.conectar();
             PreparedStatement stmt = conn.prepareStatement(query)){
 
@@ -71,14 +66,16 @@ public class LivroDAO {
             ResultSet rs = stmt.executeQuery();
 
             if(rs.next()){
-                newId = rs.getInt("id");
-                titulo = rs.getString("titulo");
-                autor = rs.getString("autor");
-                anoPublicacao = rs.getInt("ano_publicacao");
+                int newId = rs.getInt("id");
+                String titulo = rs.getString("titulo");
+                String autor = rs.getString("autor");
+                int anoPublicacao = rs.getInt("ano_publicacao");
+
+                return new Livro(newId, titulo, autor, anoPublicacao);
             }
         }
 
-        return new Livro(newId, titulo, autor, anoPublicacao);
+        return null;
     }
 
     public boolean livroExiste(int id) throws SQLException{

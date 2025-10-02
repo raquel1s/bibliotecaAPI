@@ -71,6 +71,7 @@ public class UsuarioDAO {
                 return new Usuario(newId, nome, email);
             }
         }
+
         return null;
     }
 
