@@ -2,7 +2,9 @@ package com.examplo.biblioteca.mapper;
 
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRequisicaoDTO;
 import com.examplo.biblioteca.dto.emprestimo.CriacaoEmprestimoRespostaDTO;
+import com.examplo.biblioteca.dto.usuario.CriacaoUsuarioRequisicaoDTO;
 import com.examplo.biblioteca.model.Emprestimo;
+import com.examplo.biblioteca.model.Usuario;
 import org.springframework.stereotype.Component;
 
 import java.time.LocalDate;

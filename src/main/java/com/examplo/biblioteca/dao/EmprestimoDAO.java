@@ -187,4 +187,17 @@ public class EmprestimoDAO {
             stmt.executeUpdate();
         }
     }
+
+    public void atualizarDataEmprestimo(int id, LocalDate dataEmprestimo) throws SQLException{
+        String query = "UPDATE emprestimo SET data_emprestimo = ? WHERE id = ?";
+
+        try(Connection conn = Conexao.conectar();
+            PreparedStatement stmt = conn.prepareStatement(query)){
+
+            stmt.setDate(1, Date.valueOf(dataEmprestimo));
+            stmt.setInt(2, id);
+
+            stmt.executeUpdate();
+        }
+    }
 }

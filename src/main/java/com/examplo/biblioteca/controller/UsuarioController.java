@@ -59,7 +59,7 @@ public class UsuarioController {
     public ResponseEntity<CriacaoUsuarioRespostaDTO> atualizar(@PathVariable int id,
                                                                @RequestBody CriacaoUsuarioRequisicaoDTO requisicaoUsuario){
         try{
-            return ResponseEntity.status((HttpStatus.OK)).body(service.atualizar(id, requisicaoUsuario));
+            return ResponseEntity.status(HttpStatus.OK).body(service.atualizar(id, requisicaoUsuario));
         }catch (Exception e){
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
